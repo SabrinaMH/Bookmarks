@@ -12,23 +12,32 @@ namespace BookmarksUI
 {
     public partial class MainForm : Form
     {
-        private Results results;
+        private FormData formData;
 
         public MainForm()
         {
             InitializeComponent();
-            results = Results.Instance;
+            formData = FormData.Instance;
         }
 
         public Object LboxResults
         {
-            //get { return lboxResults.DataSource; }
             set { lboxResults.DataSource = value; }
+        }
+
+        public string TxtUrl
+        {
+            set { txtUrl.Text = value; }
+        }
+
+        public string TxtComment
+        {
+            set { txtComment.Text = value; }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            results.ListResults(this, txtInput.Text);
+            formData.ListResults(this, txtInput.Text);
         }
 
         private void txtInput_Enter(object sender, EventArgs e)
@@ -41,6 +50,9 @@ namespace BookmarksUI
             ActiveForm.AcceptButton = null;
         }
 
-
+        private void lboxResults_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            formData.ListData(this, (string)lboxResults.SelectedItem);
+        }
     }
 }

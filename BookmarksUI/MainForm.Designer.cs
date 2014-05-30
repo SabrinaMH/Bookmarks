@@ -74,6 +74,7 @@
             this.lboxResults.Name = "lboxResults";
             this.lboxResults.Size = new System.Drawing.Size(424, 199);
             this.lboxResults.TabIndex = 4;
+            this.lboxResults.SelectedIndexChanged += new System.EventHandler(this.lboxResults_SelectedIndexChanged);
             // 
             // lblUrl
             // 

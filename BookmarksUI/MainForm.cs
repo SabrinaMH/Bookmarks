@@ -1,58 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows.Forms;
+using System.ComponentModel;
+using BookmarksBLL;
+using BookmarksDomain;
 
 namespace BookmarksUI
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IBookmarksView
     {
-        private FormData formData;
+        private BookmarksBLL.Operations operations;
+        private BindingSource bs;
 
         public MainForm()
         {
             InitializeComponent();
-            formData = FormData.Instance;
+            operations = BookmarksBLL.Operations.Instance;
+            operations.View = this;
+            bs = new BindingSource();
+            lboxResults.DisplayMember = "Title";
+            lboxResults.ValueMember = "Id";
+            lboxResults.DataSource = bs; /* Set after DisplayMember and ValueMember to avoid errors 
+                                          * (SelectedIndexChanged may be raised otherwise, causing errors).
+                                          * Source: http://www.codeproject.com/Articles/8390/Best-Practice-for-Binding-WinForms-ListControls
+                                          */
+            KeyPreview = true; // Enables shortcuts on form level, no matter which control has focus
+        }
+        
+        public string PartOfTitle
+        {
+            get { return this.txtInput.Text; }
         }
 
-        public Object LboxResults
+        public BindingList<Bookmark> Results
         {
-            set { lboxResults.DataSource = value; }
+            set
+            {
+                BindingList<Bookmark> results = new BindingList<Bookmark>();
+                bs.DataSource = results;
+            }
         }
 
-        public string TxtUrl
+        public new void Click(object sender, EventArgs e)
         {
-            set { txtUrl.Text = value; }
+            Results = new BindingList<Bookmark>(operations.PerformSearch(txtInput.Text));
         }
 
-        public string TxtComment
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            set { txtComment.Text = value; }
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            formData.ListResults(this, txtInput.Text);
-        }
-
-        private void txtInput_Enter(object sender, EventArgs e)
-        {
-            ActiveForm.AcceptButton = btnSearch;
-        }
-
-        private void txtInput_Leave(object sender, EventArgs e)
-        {
-            ActiveForm.AcceptButton = null;
+            if (keyData == Keys.Enter && ActiveControl == txtInput)
+            {
+                Click(null, null);
+            }
+            else if (keyData == (Keys.Control | Keys.O))
+            {
+                btnOpen_Click(null, null);
+            }
+            else if (keyData == (Keys.Control | Keys.S))
+            {
+                btnSave_Click(null, null);
+            }
+            else if (keyData == (Keys.Control | Keys.D))
+            {
+                btnDelete_Click(null, null);
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void lboxResults_SelectedIndexChanged(object sender, EventArgs e)
         {
-            formData.ListData(this, (string)lboxResults.SelectedItem);
+            string[] data = operations.GetDataForEntry((string)lboxResults.SelectedItem, lboxResults.SelectedIndex);
+            txtUrl.Text = data[0];
+            txtComment.Text = data[1];
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            // Returns an instance of Process, but no need to dispose the object, as it's null when fed a URL.
+            Process.Start(txtUrl.Text);
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult response = MessageBox.Show("Are you sure you want to delete the bookmark?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (response == DialogResult.Yes)
+            {
+                if (operations.Delete(lboxResults.SelectedIndex) > 0)
+                {
+                    bs.ResetBindings(false);
+                }
+            }
         }
     }
 }

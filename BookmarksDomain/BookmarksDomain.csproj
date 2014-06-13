@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{381BFBEA-DEE6-407F-BE63-E164FEA08FB0}</ProjectGuid>
+    <ProjectGuid>{1EDAB3D8-6A79-42C2-A5DF-7AF3F1F9A420}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BookmarksBLL</RootNamespace>
-    <AssemblyName>BookmarksBLL</AssemblyName>
+    <RootNamespace>BookmarksDomain</RootNamespace>
+    <AssemblyName>BookmarksDomain</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,18 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Operations.cs" />
+    <Compile Include="Bookmark.cs" />
+    <Compile Include="IBookmarksView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BookmarksDAL\BookmarksDAL.csproj">
-      <Project>{45e27e64-239f-426d-a6b4-0404324a3ae4}</Project>
-      <Name>BookmarksDAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BookmarksDomain\BookmarksDomain.csproj">
-      <Project>{1edab3d8-6a79-42c2-a5df-7af3f1f9a420}</Project>
-      <Name>BookmarksDomain</Name>
-    </ProjectReference>
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

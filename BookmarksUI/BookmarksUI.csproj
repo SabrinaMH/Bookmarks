@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,7 +54,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FormData.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,6 +84,14 @@
     <ProjectReference Include="..\BookmarksBLL\BookmarksBLL.csproj">
       <Project>{381bfbea-dee6-407f-be63-e164fea08fb0}</Project>
       <Name>BookmarksBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookmarksDAL\BookmarksDAL.csproj">
+      <Project>{45e27e64-239f-426d-a6b4-0404324a3ae4}</Project>
+      <Name>BookmarksDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BookmarksDomain\BookmarksDomain.csproj">
+      <Project>{1edab3d8-6a79-42c2-a5df-7af3f1f9a420}</Project>
+      <Name>BookmarksDomain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

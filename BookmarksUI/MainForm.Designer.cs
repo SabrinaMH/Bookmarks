@@ -36,12 +36,7 @@
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.lblComment = new System.Windows.Forms.Label();
             this.txtComment = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.txtTitle = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtInput
@@ -93,7 +88,7 @@
             this.txtUrl.Location = new System.Drawing.Point(520, 65);
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(270, 20);
-            this.txtUrl.TabIndex = 3;
+            this.txtUrl.TabIndex = 2;
             // 
             // lblComment
             // 
@@ -110,21 +105,11 @@
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
             this.txtComment.Size = new System.Drawing.Size(270, 171);
-            this.txtComment.TabIndex = 4;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(634, 274);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 9;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.txtComment.TabIndex = 3;
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(472, 274);
+            this.btnOpen.Location = new System.Drawing.Point(715, 274);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 10;
@@ -132,53 +117,12 @@
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(553, 274);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 11;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(715, 274);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 12;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(487, 38);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(27, 13);
-            this.lblTitle.TabIndex = 13;
-            this.lblTitle.Text = "Title";
-            // 
-            // txtTitle
-            // 
-            this.txtTitle.Location = new System.Drawing.Point(520, 35);
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(270, 20);
-            this.txtTitle.TabIndex = 2;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 309);
-            this.Controls.Add(this.txtTitle);
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnOpen);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtComment);
             this.Controls.Add(this.lblComment);
             this.Controls.Add(this.txtUrl);
@@ -189,6 +133,7 @@
             this.Controls.Add(this.txtInput);
             this.Name = "MainForm";
             this.Text = "Bookmark Search";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,12 +149,7 @@
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Label lblComment;
         private System.Windows.Forms.TextBox txtComment;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.TextBox txtTitle;
     }
 }
 

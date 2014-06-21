@@ -1,10 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="BookmarksDomain" namespace="BookmarksDomain">
     <class name="Bookmark" table="moz_places" lazy="false">
-      <!-- Todo: When to use lazy loading? -->
     <id name="Id">
       <column name="id"/>
-      <!-- <generator class="guid"/> -->
     </id>
     <property name="Title" column ="title"/>
     <property name="Url" column ="url"/>

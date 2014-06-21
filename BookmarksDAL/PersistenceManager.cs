@@ -25,43 +25,18 @@ namespace BookmarksDAL
             ConfigureNHibernate();
         }
 
-        /*
-        /// <summary>
-        /// Retrieves objects of a specified type where a specified property equals a specified value.
-        /// </summary>
-        /// <typeparam name="T">The type of the objects to be retrieved.</typeparam>
-        /// <param name="propertyName">The name of the property to be tested.</param>
-        /// <param name="propertyValue">The value that the named property must hold.</param>
-        /// <returns>A list of all objects meeting the specified criteria.</returns>
-        public IList<Bookmark> RetrieveMatches(string input)
-        {
-            using (ISession session = sessionFactory.OpenSession())
-            {
-                string sql = @"
-                    select moz_bookmarks.title as ""Title"", moz_bookmarks.id as ""Id"", moz_places.url as ""Url"", moz_items_annos.content as ""Comment""
-                    from moz_places 
-                    inner join moz_bookmarks on moz_places.id = moz_bookmarks.fk
-                    left outer join moz_items_annos on moz_bookmarks.id = moz_items_annos.item_id 
-                    where moz_places.url like 'http%' and moz_bookmarks.title like '%" + input + "%'";
-
-                IQuery sqlQuery = session.CreateSQLQuery(sql).SetResultTransformer(Transformers.AliasToBean(typeof(Bookmark)));
-                return sqlQuery.List<Bookmark>();
-            }
-        }
-         * */
-
         public void Dispose()
         {
             sessionFactory.Dispose();
         }
 
-        // Todo: Examine why we both need Dispose and Close.
         /// <summary>
         /// Close this Persistence Manager and release all resources (connection pools etc). It is the responsibility of the application to ensure that there are no open Sessions before calling Close().
         /// </summary>
         public void Close()
         {
             sessionFactory.Close();
+            Dispose();
         }
 
         private void ConfigureLog4Net()

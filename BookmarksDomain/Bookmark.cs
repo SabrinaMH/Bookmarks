@@ -23,8 +23,6 @@ namespace BookmarksDomain
             this.Content = comment;
         }
 
-        //public virtual Guid Id { get; set; }
-
         public virtual Int64 Id
         {
             get { return this.id; }

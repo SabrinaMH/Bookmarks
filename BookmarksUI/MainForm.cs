@@ -12,8 +12,6 @@ namespace BookmarksUI
     {
         private BookmarksBLL.Operations operations;
         private BindingSource bs;
-        // todo - create event and raise it when form is closing. THen subscribe to it such that I can clean up session in DatabaseConnection.
-        // public event  formClosingEventHandler { get; set; }
 
         public MainForm()
         { 
@@ -59,22 +57,17 @@ namespace BookmarksUI
             {
                 btnOpen_Click(null, null);
             }
-            else if (keyData == (Keys.Control | Keys.S))
-            {
-                btnSave_Click(null, null);
-            }
-            else if (keyData == (Keys.Control | Keys.D))
-            {
-                btnDelete_Click(null, null);
-            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void lboxResults_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] data = operations.GetDataForEntry((Bookmark)lboxResults.SelectedItem);
-            txtUrl.Text = data[0];
-            txtComment.Text = data[1];
+            if (lboxResults.SelectedIndex != -1)
+            {
+                string[] data = operations.GetDataForEntry((Bookmark)lboxResults.SelectedItem);
+                txtUrl.Text = data[0];
+                txtComment.Text = data[1];
+            }
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -83,29 +76,9 @@ namespace BookmarksUI
             Process.Start(txtUrl.Text);
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult response = MessageBox.Show("Are you sure you want to delete the bookmark?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-            if (response == DialogResult.Yes)
-            {
-                operations.Delete((Bookmark)lboxResults.SelectedItem);
-                /*
-                if (operations.Delete(lboxResults.SelectedIndex) > 0)
-                {
-                    bs.ResetBindings(false);
-                }
-                 * */
-            }
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            operations.Add(txtTitle.Text, txtUrl.Text, txtComment.Text);
+            operations.Close();
         }
     }
 }

@@ -12,9 +12,11 @@ namespace BookmarksUI
     {
         private BookmarksBLL.Operations operations;
         private BindingSource bs;
+        // todo - create event and raise it when form is closing. THen subscribe to it such that I can clean up session in DatabaseConnection.
+        // public event  formClosingEventHandler { get; set; }
 
         public MainForm()
-        {
+        { 
             InitializeComponent();
             operations = BookmarksBLL.Operations.Instance;
             operations.View = this;
@@ -37,7 +39,7 @@ namespace BookmarksUI
         {
             set
             {
-                BindingList<Bookmark> results = new BindingList<Bookmark>();
+                BindingList<Bookmark> results = value;
                 bs.DataSource = results;
             }
         }
@@ -70,7 +72,7 @@ namespace BookmarksUI
 
         private void lboxResults_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] data = operations.GetDataForEntry((string)lboxResults.SelectedItem, lboxResults.SelectedIndex);
+            string[] data = operations.GetDataForEntry((Bookmark)lboxResults.SelectedItem);
             txtUrl.Text = data[0];
             txtComment.Text = data[1];
         }
@@ -91,11 +93,19 @@ namespace BookmarksUI
             DialogResult response = MessageBox.Show("Are you sure you want to delete the bookmark?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (response == DialogResult.Yes)
             {
+                operations.Delete((Bookmark)lboxResults.SelectedItem);
+                /*
                 if (operations.Delete(lboxResults.SelectedIndex) > 0)
                 {
                     bs.ResetBindings(false);
                 }
+                 * */
             }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            operations.Add(txtTitle.Text, txtUrl.Text, txtComment.Text);
         }
     }
 }

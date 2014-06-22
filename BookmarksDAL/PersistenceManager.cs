@@ -8,6 +8,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Transform;
 using BookmarksDomain;
+using System.IO;
 
 [assembly: log4net.Config.XmlConfigurator(Watch=true)]
 namespace BookmarksDAL
@@ -15,7 +16,7 @@ namespace BookmarksDAL
     public class PersistenceManager : IDisposable
     {
         private static string filenameCfgXml = "bookmark.cfg.xml";
-        private static string pathToCfgXml = System.AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\BookmarksDAL\";
+        private static string pathToCfgXml; // = System.AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\BookmarksDAL\";
         private ISessionFactory sessionFactory;
         internal ISession session { get; private set; }
 
@@ -23,6 +24,7 @@ namespace BookmarksDAL
         {
             ConfigureLog4Net();
             ConfigureNHibernate();
+            pathToCfgXml = ResourceHelper.GetEmbeddedResource(filenameCfgXml, this.GetType().Assembly);
         }
 
         public void Dispose()

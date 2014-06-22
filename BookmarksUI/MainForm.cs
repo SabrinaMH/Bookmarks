@@ -12,6 +12,7 @@ namespace BookmarksUI
     {
         private BookmarksBLL.Operations operations;
         private BindingSource bs;
+        private BindingList<Bookmark> results;
 
         public MainForm()
         { 
@@ -35,9 +36,13 @@ namespace BookmarksUI
 
         public BindingList<Bookmark> Results
         {
+            get
+            {
+                return results;
+            }
             set
             {
-                BindingList<Bookmark> results = value;
+                results = value;
                 bs.DataSource = results;
             }
         }
@@ -45,6 +50,11 @@ namespace BookmarksUI
         public new void Click(object sender, EventArgs e)
         {
             Results = new BindingList<Bookmark>(operations.PerformSearch(txtInput.Text));
+            if (Results.Count > 0)
+            {
+                lboxResults.Focus();
+                lboxResults_SelectedIndexChanged(null, null);
+            }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

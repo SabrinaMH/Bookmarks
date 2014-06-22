@@ -74,6 +74,7 @@
     <Compile Include="DatabaseAccess.cs" />
     <Compile Include="PersistenceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceHelper.cs" />
     <Compile Include="SessionFactory.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -87,6 +87,7 @@
             // 
             this.txtUrl.Location = new System.Drawing.Point(520, 65);
             this.txtUrl.Name = "txtUrl";
+            this.txtUrl.ReadOnly = true;
             this.txtUrl.Size = new System.Drawing.Size(270, 20);
             this.txtUrl.TabIndex = 2;
             // 
@@ -104,6 +105,7 @@
             this.txtComment.Location = new System.Drawing.Point(520, 96);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
+            this.txtComment.ReadOnly = true;
             this.txtComment.Size = new System.Drawing.Size(270, 171);
             this.txtComment.TabIndex = 3;
             // 

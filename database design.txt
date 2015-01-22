@@ -1,0 +1,56 @@
+select moz_bookmarks.title as ""Title"", moz_bookmarks.id as ""Id"", moz_places.url as ""Url"", moz_items_annos.content as ""Comment""
+from moz_places 
+inner join moz_bookmarks on moz_places.id = moz_bookmarks.fk
+left outer join moz_items_annos on moz_bookmarks.id = moz_items_annos.item_id 
+where moz_places.url like 'http%' and moz_bookmarks.title like '%" + input + "%'";
+
+
+
+
+s.CreateCriteria<Bookmark>()
+	.CreateCriteria("moz_bookmarks")
+	.Add(Restrictions.Eq(
+	
+	
+moz_bookmarks	moz_items_annos		moz_places
+title			content				url
+id (PK)	<-----> item_id	(FK)				
+fk (FK)	<-------------------------> id (PK)
+				id  (PK)
+
+tableA			tableB				tableC
+id_A (PK) <-->	id_A (FK)			id_C (PK)
+cod_A			id_B (PK)	<-->	id_B (FK)
+				cod_B				cod_C
+
+
+
+<class name="Bookmark" table "moz_places">
+	<id name="fk">
+		<generator class="identity"/>
+	</id>
+	<property name="Url" column="url"/>
+	
+	<join table="moz_bookmarks">
+		<key column="fk"/>
+		<property name="Title" column="title"/>
+	</join>
+</class>
+
+s.Get<Bookmark>();
+
+
+
+
+
+
+
+
+
+
+<class name="Bookmark" table="moz_places" >
+  <id name="id"/>
+  <join table="moz_bookmarks">
+    <key column="fk" />
+  </join>
+</class>
